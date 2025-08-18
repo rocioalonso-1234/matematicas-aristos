@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Matemáticas · ESO y Bachillerato · Aristos</title>
+<meta name="description" content="Recursos de Matemáticas por evaluación y tema en ESO y Bachillerato (Aristos European School)." />
+
+<!-- Tipografías -->
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --brand:#0a4d9e; --brand-2:#2b9afc; --brand-3:#7cc3ff;
+    --ink:#0e1b2a; --ink-soft:#4b5b74;
+    --card: rgba(255,255,255,.52); --line: rgba(10,77,158,.18);
+    --radius:16px; --shadow: 0 10px 25px rgba(10,77,158,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --ink:#e9f1ff; --ink-soft:#b6c7e6; --card: rgba(12,22,40,.55); --line: rgba(124,195,255,.22); --shadow: 0 10px 25px rgba(0,0,0,.35); }
+  }
+  *{box-sizing:border-box} html,body{height:100%}
+  body{
+    margin:0; font-family: Nunito, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif;
+    color:var(--ink); line-height:1.55;
+    background:
+      radial-gradient(1200px 800px at 10% -10%, rgba(124,195,255,.35), transparent 60%),
+      radial-gradient(1000px 700px at 120% 20%, rgba(43,154,252,.25), transparent 55%),
+      conic-gradient(from 200deg at 80% 0%, rgba(10,77,158,.10), transparent 60%),
+      linear-gradient(180deg, #f7fbff 0%, #eef6ff 30%, #e8f3ff 60%, #f5f9ff 100%);
+    background-attachment: fixed; animation: floatBg 18s ease-in-out infinite;
+  }
+  @keyframes floatBg{0%{background-position:0 0,0 0,0 0,0 0}50%{background-position:10px -8px,-8px 10px,6px -6px,0 0}100%{background-position:0 0,0 0,0 0,0 0}}
+  .wrap{max-width:1180px;margin:0 auto;padding:18px} .elevate{box-shadow:var(--shadow)}
+
+  header{position:sticky;top:0;z-index:20;backdrop-filter:blur(10px) saturate(120%);border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,255,255,.55))}
+  @media (prefers-color-scheme: dark){ header{background:linear-gradient(180deg, rgba(12,22,40,.7), rgba(12,22,40,.45))} }
+  .topbar{display:flex;align-items:center;gap:14px}
+  .logo{width:64px;height:64px;object-fit:contain;filter: drop-shadow(0 2px 4px rgba(0,0,0,.12))}
+  .title h1{margin:0;font-family:Poppins, Nunito, system-ui, sans-serif;font-weight:800;font-size:1.5rem;letter-spacing:.2px}
+  .title small{color:var(--ink-soft)}
+  .cta-row{margin-left:auto;display:flex;gap:10px;align-items:center}
+
+  .btn{appearance:none;border:1px solid var(--line);cursor:pointer;font-weight:700;padding:10px 14px;border-radius:12px;background:rgba(255,255,255,.75);
+    transition:transform .1s ease, box-shadow .2s ease, background .2s ease}
+  @media (prefers-color-scheme: dark){ .btn{background:rgba(255,255,255,.07);color:var(--ink)} }
+  .btn:hover{transform:translateY(-1px);box-shadow:0 6px 14px rgba(10,77,158,.18)} .btn:active{transform:translateY(0)}
+  .btn.primary{color:#fff;border-color:transparent;background:linear-gradient(135deg,var(--brand) 0%,var(--brand-2) 100%)}
+  .btn.ghost{background:transparent}
+
+  nav.tabs{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px}
+  nav.tabs button{position:relative;border:1px solid var(--line);background:rgba(255,255,255,.7);padding:10px 14px;border-radius:999px;font-weight:800;font-family:Poppins, Nunito, system-ui, sans-serif;color:var(--ink);transition:background .2s,color .2s,transform .1s}
+  @media (prefers-color-scheme: dark){ nav.tabs button{background:rgba(255,255,255,.06)} }
+  nav.tabs button::after{content:"";position:absolute;left:16px;right:16px;bottom:6px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--brand-3),var(--brand-2));transform:scaleX(0);transform-origin:left;transition:transform .25s}
+  nav.tabs button:hover{transform:translateY(-1px)} nav.tabs button.active{color:#fff;border-color:transparent;background:linear-gradient(135deg,var(--brand) 0%,var(--brand-2) 100%)} nav.tabs button.active::after{transform:scaleX(1)}
+
+  main{padding:22px 0}
+  .panel{display:none;animation:fadeUp .35s ease}
+  .panel.active{display:block}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+  .chip{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;font-size:.85rem;color:var(--ink-soft);background:rgba(255,255,255,.6)}
+  @media (prefers-color-scheme: dark){ .chip{background:rgba(255,255,255,.05)} }
+
+  .search{flex:1;display:flex;gap:10px}
+  input[type="search"]{flex:1;padding:12px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.8)}
+  @media (prefers-color-scheme: dark){ input[type="search"]{background:rgba(255,255,255,.07);color:var(--ink)} }
+
+  section.card{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);backdrop-filter:blur(8px) saturate(120%);margin-bottom:18px}
+  section.card > header{background:linear-gradient(180deg, rgba(255,255,255,.6), rgba(255,255,255,.2));border-bottom:1px solid var(--line);padding:14px 16px;border-top-left-radius:var(--radius);border-top-right-radius:var(--radius)}
+  section.card h3{margin:0;letter-spacing:.3px;font-family:Poppins, Nunito, system-ui, sans-serif}
+  .inner{padding:14px 16px}
+
+  .cols-4{display:grid;grid-template-columns:1fr;gap:12px}
+  @media (min-width:900px){ .cols-4{grid-template-columns:repeat(4,1fr)} }
+  .bucket{background:rgba(255,255,255,.85);border:1px solid var(--line);border-radius:14px;padding:12px}
+  @media (prefers-color-scheme: dark){ .bucket{background:rgba(255,255,255,.06)} }
+  .bucket h4{margin:.1rem 0 .4rem 0;font-family:Poppins, Nunito, system-ui, sans-serif}
+
+  .cat{background:rgba(255,255,255,.8);border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:10px}
+  @media (prefers-color-scheme: dark){ .cat{background:rgba(255,255,255,.08)} }
+  .cat h5{margin:0 0 4px;font-size:1rem;font-weight:700}
+  .item{background:rgba(255,255,255,.8);border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:10px;transition:transform .12s, box-shadow .2s}
+  .item:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+  .item p{margin:0 0 6px;color:var(--ink-soft);font-size:.93rem}
+  .actions{display:flex;gap:8px;flex-wrap:wrap}
+  .btn.ok{background:linear-gradient(180deg,#e8fff1,#d9ffea);border-color:#b7f3cf;color:#12643c}
+
+  footer{border-top:1px solid var(--line);padding:18px 0;color:var(--ink-soft);font-size:.92rem}
+
+  dialog::backdrop{background:rgba(0,0,0,.35)}
+  dialog{border:none;border-radius:18px;max-width:720px;width:92%;padding:0;overflow:hidden;background:var(--card);backdrop-filter:blur(10px) saturate(120%)}
+  .dialog-head{padding:14px 16px;border-bottom:1px solid var(--line);background:linear-gradient(180deg, rgba(255,255,255,.6), rgba(255,255,255,.2))}
+  .dialog-body{padding:14px 16px}
+  .dialog-actions{padding:14px 16px;border-top:1px solid var(--line);display:flex;gap:8px;justify-content:flex-end}
+
+  /* === Campos del formulario (mejor legibilidad) === */
+  label{display:block;font-weight:700;margin:.4rem 0 .2rem;letter-spacing:.2px}
+  input[type="text"],
+  input[type="email"],
+  select,
+  textarea{
+    width:100%; padding:12px; border:2px solid var(--brand-2); border-radius:12px;
+    font-size:1rem; font-weight:600; background-color:#ffffff; color:#000000;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.08);
+  }
+  @media (prefers-color-scheme: dark){
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea{
+      background-color:#1e2a3a; color:#ffffff; border:2px solid var(--brand-3);
+    }
+  }
+  select{
+    appearance:none;
+    background-image:url('data:image/svg+xml;utf8,<svg fill="%230a4d9e" height="24" viewBox="0 0 24 24" width="24"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat:no-repeat; background-position:right 12px center; background-size:16px; padding-right:36px;
+  }
+  @media (prefers-color-scheme: dark){
+    select{
+      background-image:url('data:image/svg+xml;utf8,<svg fill="%23ffffff" height="24" viewBox="0 0 24 24" width="24"><path d="M7 10l5 5 5-5z"/></svg>');
+    }
+  }
+
+  .admin-bar{display:none} .admin-visible .admin-bar{display:flex;gap:8px;margin:12px 0}
+
+  /* Sub-pestañas internas para Bachillerato (CORREGIDO: color legible en inactivas) */
+  .subtabs{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 16px}
+  .subtabs button{
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.7);
+    color:var(--ink); /* texto visible en claro */
+    padding:8px 12px;
+    border-radius:999px;
+    font-weight:700;
+    font-family:Poppins, Nunito, system-ui, sans-serif;
+    cursor:pointer
+  }
+  @media (prefers-color-scheme: dark){
+    .subtabs button{
+      background:rgba(255,255,255,.06);
+      color:var(--ink); /* texto visible también en oscuro */
+    }
+  }
+  .subtabs button.active{
+    color:#fff;
+    border-color:transparent;
+    background:linear-gradient(135deg,var(--brand) 0%,var(--brand-2) 100%)
+  }
+</style>
+</head>
+<body>
+<header class="elevate">
+  <div class="wrap">
+    <div class="topbar">
+      <img class="logo" src="logo-colegio.jpg" alt="Aristos European School" />
+      <div class="title">
+        <h1>Matemáticas · ESO y Bachillerato</h1>
+        <small>Aristos European School · Madrid</small>
+      </div>
+      <div class="cta-row">
+        <button class="btn ghost" id="themeToggle" title="Tema claro/oscuro/auto">🌓</button>
+        <button class="btn primary" id="askBtn">Haz tu pregunta</button>
+      </div>
+    </div>
+    <nav class="tabs" id="tabs"></nav>
+    <div class="admin-bar" id="adminBar">
+      <span class="chip">Modo administración</span>
+      <button class="btn" id="exportCSV">Exportar preguntas (CSV)</button>
+      <button class="btn" id="clearQuestions">Borrar preguntas guardadas</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="panels"></div>
+</main>
+
+<footer>
+  <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+    <span>© <span id="year"></span> Departamento de Matemáticas · Aristos</span>
+    <span class="chip">HTML único · Sin cookies de terceros</span>
+  </div>
+</footer>
+
+<!-- Diálogo de preguntas -->
+<dialog id="qDialog" aria-label="Enviar una pregunta">
+  <div class="dialog-head"><strong>Envía tu pregunta</strong></div>
+  <form id="qForm" class="dialog-body">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div>
+        <label for="qCurso">Curso</label>
+        <select id="qCurso" name="curso" required></select>
+      </div>
+      <div>
+        <label for="qNombre">Nombre (opcional)</label>
+        <input type="text" id="qNombre" name="nombre" placeholder="Tu nombre" />
+      </div>
+    </div>
+    <label for="qEmail">Email (opcional)</label>
+    <input type="email" id="qEmail" name="email" placeholder="tu@email.com" />
+    <label for="qTexto">Pregunta</label>
+    <textarea id="qTexto" name="pregunta" required placeholder="Escribe tu duda aquí..."></textarea>
+    <p class="chip">Se abrirá tu email y se guardará una copia local (para exportar en modo admin).</p>
+  </form>
+  <div class="dialog-actions">
+    <button class="btn" id="qCancel" type="button">Cancelar</button>
+    <button class="btn primary" id="qSend" type="submit" form="qForm">Enviar</button>
+  </div>
+</dialog>
+
+<script>
+/* ===============================
+   Tabs principales y subtabs
+=============================== */
+const TABS = ["1º ESO","2º ESO","3º ESO","4º ESO","1º Bachillerato","2º Bachillerato"];
+const BACHI_SUBTABS = {
+  "1º Bachillerato": ["Matemáticas I","Matemáticas Ciencias Sociales I"],
+  "2º Bachillerato": ["Matemáticas II","Matemáticas Ciencias Sociales II"]
+};
+
+/* ===============================
+   Correos por curso
+=============================== */
+const EMAILS = {
+  "1º ESO": "silvia.villaverde@colegioaristos.com",
+  "2º ESO": "juan.quesada@colegioaristos.com",
+  "3º ESO": "rocio.alonso@colegioaristos.com",
+  "4º ESO": "raquel.gonzalez@colegioaristos.com",
+  "Matemáticas I": "dep.matematicas@colegioaristos.com",
+  "Matemáticas Ciencias Sociales I": "dep.matematicas@colegioaristos.com",
+  "Matemáticas II": "dep.matematicas@colegioaristos.com",
+  "Matemáticas Ciencias Sociales II": "dep.matematicas@colegioaristos.com"
+};
+
+/* ===============================
+   Evaluaciones, Temas y Categorías
+=============================== */
+const EVALS = ["1ª Evaluación","2ª Evaluación","3ª Evaluación"];
+const TEMAS = ["Tema 1","Tema 2","Tema 3","Tema 4"];
+const CATS = [
+  { key:"teoria",   label:"Teoría",                         icon:"📗" },
+  { key:"extra",    label:"Ejercicios extra",               icon:"📝" },
+  { key:"examenes", label:"Exámenes cursos anteriores",     icon:"🧪" }
+];
+
+/* Etiquetas personalizadas de temas (opcional) */
+const TOPIC_LABEL_OVERRIDES = {
+  "3º ESO": {
+    "1ª Evaluación": {
+      "Tema 1": "Tema 1 — Números reales",
+      "Tema 2": "Tema 2 — Potencias y raíces",
+      "Tema 3": "Tema 3 — Álgebra 1",
+      "Tema 4": "Tema 4 — (pendiente)"
+    }
+  }
+};
+function topicLabel(course, evalName, temaKey){
+  return TOPIC_LABEL_OVERRIDES?.[course]?.[evalName]?.[temaKey] || temaKey;
+}
+
+/* ===============================
+   DATA (estructura vacía)
+   Acceso: DATA[curso][evaluación][tema][categoria] = []
+           y DATA[curso][evaluación]._eval_examenes = []
+=============================== */
+const COURSES_REAL = [
+  "1º ESO","2º ESO","3º ESO","4º ESO",
+  "Matemáticas I","Matemáticas Ciencias Sociales I",
+  "Matemáticas II","Matemáticas Ciencias Sociales II"
+];
+
+const DATA = createEmptyData();
+
+// --- PRUEBA CARGADA: 3º ESO · 1ª Evaluación (Temas 1–3 con PDFs de ejemplo) ---
+DATA["3º ESO"]["1ª Evaluación"]["Tema 1"].teoria.push({
+  title: "Números reales",
+  url: "file:///C:/Users/rocio_214mc07/OneDrive/C.%20ARISTOS/25-26/Web%20mates/NUMEROS_REALES-Teor%C3%ADa.pdf",
+  desc: "Resumen y ejemplos"
+});
+DATA["3º ESO"]["1ª Evaluación"]["Tema 1"].extra.push({
+  title: "Números reales",
+  url: "file:///C:/Users/rocio_214mc07/OneDrive/C.%20ARISTOS/25-26/Web%20mates/N%C3%BAmeros%20reales.pdf"
+});
+DATA["3º ESO"]["1ª Evaluación"]["Tema 1"].extra.push({
+  title: "Potencias",
+  url: "file:///C:/Users/rocio_214mc07/OneDrive/C.%20ARISTOS/25-26/Web%20mates/Ejercicios%20de%20potencias%20con%20soluciones.pdf"
+});
+
+DATA["3º ESO"]["1ª Evaluación"]["Tema 1"].examenes.push({
+  title: "Números reales · Examen (Jun 2024)",
+  url: "material/3eso/tema1-numeros-reales-examen.pdf"
+});
+
+DATA["3º ESO"]["1ª Evaluación"]["Tema 2"].teoria.push({
+  title: "Potencias y raíces · Teoría",
+  url: "material/3eso/tema2-potencias-raices-teoria.pdf"
+});
+DATA["3º ESO"]["1ª Evaluación"]["Tema 2"].extra.push({
+  title: "Potencias y raíces · Ejercicios extra",
+  url: "material/3eso/tema2-potencias-raices-extra.pdf"
+});
+DATA["3º ESO"]["1ª Evaluación"]["Tema 2"].examenes.push({
+  title: "Potencias y raíces · Examen (Jun 2024)",
+  url: "material/3eso/tema2-potencias-raices-examen.pdf"
+});
+
+DATA["3º ESO"]["1ª Evaluación"]["Tema 3"].teoria.push({
+  title: "Álgebra 1 · Teoría",
+  url: "material/3eso/tema3-algebra1-teoria.pdf"
+});
+DATA["3º ESO"]["1ª Evaluación"]["Tema 3"].extra.push({
+  title: "Álgebra 1 · Ejercicios extra",
+  url: "material/3eso/tema3-algebra1-extra.pdf"
+});
+DATA["3º ESO"]["1ª Evaluación"]["Tema 3"].examenes.push({
+  title: "Álgebra 1 · Examen (Jun 2024)",
+  url: "material/3eso/tema3-algebra1-examen.pdf"
+});
+// Nota: el bloque de "Examen de evaluación (cursos anteriores)" se deja VACÍO (no añadimos items).
+
+// --- PRUEBA CARGADA: 1º ESO · 1ª Evaluación (ejemplo) ---
+DATA["1º ESO"]["1ª Evaluación"]["Tema 1"].teoria.push({
+  title: "Números naturales · Teoría",
+  url: "material/3eso/tema1-numeros-reales-teoria.pdf",
+  desc: "Resumen y ejemplos"
+});
+DATA["1º ESO"]["1ª Evaluación"]["Tema 1"].extra.push({
+  title: "Números naturales · Ejercicios extra",
+  url: "material/3eso/tema1-numeros-reales-extra.pdf"
+});
+DATA["1º ESO"]["1ª Evaluación"]["Tema 1"].examenes.push({
+  title: "Números naturales · Examen (Jun 2024)",
+  url: "material/3eso/tema1-numeros-reales-examen.pdf"
+});
+
+
+/* ===============================
+   Helpers para crear estructura
+=============================== */
+function createEmptyData(){
+  const obj = {};
+  COURSES_REAL.forEach(c=>{
+    obj[c] = {};
+    EVALS.forEach(ev=>{
+      obj[c][ev] = {};
+      // Temas 1–4
+      TEMAS.forEach(t=>{
+        obj[c][ev][t] = { teoria:[], extra:[], examenes:[] };
+      });
+      // Contenedor de exámenes de evaluación (globales) — queda vacío
+      obj[c][ev]._eval_examenes = [];
+    });
+  });
+  return obj;
+}
+
+const EMPTY_HINT = `<div class="item"><p class="note" style="margin:0">Aún no hay materiales en esta categoría.</p></div>`;
+
+/* ===============================
+   Pintar UI
+=============================== */
+const tabsEl = document.getElementById('tabs');
+const panelsEl = document.getElementById('panels');
+document.getElementById('year').textContent = new Date().getFullYear();
+
+TABS.forEach((tabName, idx) => {
+  const b = document.createElement('button');
+  b.textContent = tabName;
+  b.addEventListener('click', ()=>activateTab(idx));
+  if(idx===0) b.classList.add('active');
+  tabsEl.appendChild(b);
+
+  const panel = document.createElement('div');
+  panel.className = "panel"+(idx===0?" active":"");
+  panel.id = "panel-"+idx;
+
+  const headerHTML = `
+    <div class="row" style="justify-content:space-between">
+      <h2 style="margin:0; font-family:Poppins, Nunito, system-ui, sans-serif">${tabName}</h2>
+      <div class="search" role="search">
+        <input type="search" id="q-${idx}" placeholder="Buscar en ${tabName}…" aria-label="Buscar"/>
+        <button class="btn" data-clear="${idx}">Limpiar</button>
+      </div>
+    </div>
+  `;
+
+  if(BACHI_SUBTABS[tabName]){
+    const subs = BACHI_SUBTABS[tabName];
+    const subtabsId = `subtabs-${idx}`;
+    panel.innerHTML = headerHTML + `
+      <div class="subtabs" id="${subtabsId}">
+        ${subs.map((s,i)=>`<button class="${i===0?'active':''}" data-sub="${escapeId(s)}">${s}</button>`).join('')}
+      </div>
+      <div id="subcontent-${idx}">
+        ${renderEvaluationsBlock(subs[0])}
+      </div>
+    `;
+    panelsEl.appendChild(panel);
+
+    const subTabsEl = panel.querySelector(`#${subtabsId}`);
+    const subContentEl = panel.querySelector(`#subcontent-${idx}`);
+    subTabsEl.querySelectorAll('button').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        subTabsEl.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        subContentEl.innerHTML = renderEvaluationsBlock(btn.textContent.trim());
+        renderAll(); // reinyecta materiales
+      });
+    });
+  }else{
+    panel.innerHTML = headerHTML + renderEvaluationsBlock(tabName);
+    panelsEl.appendChild(panel);
+  }
+});
+
+/* Bloque de evaluaciones → temas → categorías + EXAMEN DE EVALUACIÓN (global) */
+function renderEvaluationsBlock(course){
+  return `
+    ${EVALS.map(ev => `
+      <section class="card elevate" aria-labelledby="${idFor(course)}-${idFor(ev)}">
+        <header><h3 id="${idFor(course)}-${idFor(ev)}">📄 ${ev}</h3></header>
+        <div class="inner">
+          <div class="cols-4">
+            ${TEMAS.map(temaKey => `
+              <div class="bucket">
+                <h4>${topicLabel(course, ev, temaKey)}</h4>
+                ${CATS.map(c => `
+                  <div class="cat">
+                    <h5>${c.icon} ${c.label}</h5>
+                    <div id="${idFor(course)}-${idFor(ev)}-${idFor(temaKey)}-${c.key}">
+                      ${EMPTY_HINT}
+                    </div>
+                  </div>
+                `).join("")}
+              </div>
+            `).join("")}
+          </div>
+
+          <!-- Bloque: Examen de evaluación (global) -->
+          <div class="cat" style="margin-top:12px">
+            <h5>🧪 Examen de evaluación (cursos anteriores)</h5>
+            <div id="${idFor(course)}-${idFor(ev)}-eval-examenes">
+              ${EMPTY_HINT}
+            </div>
+          </div>
+        </div>
+      </section>
+    `).join("")}
+  `;
+}
+
+/* ===============================
+   Render de materiales
+=============================== */
+function renderAll(filterText=""){
+  const filter = (m)=>!filterText || JSON.stringify(m).toLowerCase().includes(filterText.toLowerCase());
+
+  COURSES_REAL.forEach(course=>{
+    EVALS.forEach(ev=>{
+      // Temas 1–4
+      TEMAS.forEach(tema=>{
+        CATS.forEach(c=>{
+          const mountId = `${idFor(course)}-${idFor(ev)}-${idFor(tema)}-${c.key}`;
+          const mount = document.getElementById(mountId);
+          if(!mount) return;
+          const list = (DATA[course]?.[ev]?.[tema]?.[c.key] || []).filter(filter);
+          mount.innerHTML = list.length ? list.map(renderPDFItem).join("") : EMPTY_HINT;
+        });
+      });
+
+      // Examen de evaluación (global) — queda vacío salvo que añadas items
+      const mountEval = document.getElementById(`${idFor(course)}-${idFor(ev)}-eval-examenes`);
+      if(mountEval){
+        const listEval = (DATA[course]?.[ev]?._eval_examenes || []).filter(filter);
+        mountEval.innerHTML = listEval.length ? listEval.map(renderPDFItem).join("") : EMPTY_HINT;
+      }
+    });
+  });
+}
+renderAll();
+
+function renderPDFItem(m){
+  const d = m.desc ? `<p>${escapeHTML(m.desc)}</p>` : "";
+  return `
+    <div class="item">
+      <strong>${escapeHTML(m.title)}</strong>
+      ${d}
+      <div class="actions" style="margin-top:6px">
+        <a class="btn" href="${m.url}" target="_blank" rel="noopener">Abrir</a>
+        <a class="btn ok" href="${m.url}" download>Descargar PDF</a>
+      </div>
+    </div>
+  `;
+}
+
+/* ===============================
+   Buscador por tab
+=============================== */
+TABS.forEach((tabName, idx)=>{
+  const q = document.getElementById('q-'+idx);
+  const clearBtn = document.querySelector(`[data-clear="${idx}"]`);
+  q?.addEventListener('input', ()=> renderAll(q.value));
+  clearBtn?.addEventListener('click', ()=>{ q.value=""; renderAll(""); q.focus(); });
+});
+
+/* Cambio de tab */
+function activateTab(idx){
+  document.querySelectorAll('nav.tabs button').forEach((b,i)=>b.classList.toggle('active', i===idx));
+  document.querySelectorAll('.panel').forEach((p,i)=>p.classList.toggle('active', i===idx));
+}
+
+/* ===============================
+   Preguntas (mailto + localStorage + CSV)
+=============================== */
+const askBtn = document.getElementById('askBtn');
+const qDialog = document.getElementById('qDialog');
+const qForm = document.getElementById('qForm');
+const qCancel = document.getElementById('qCancel');
+const qCurso = document.getElementById('qCurso');
+const exportBtn = document.getElementById('exportCSV');
+const clearBtn = document.getElementById('clearQuestions');
+
+COURSES_REAL.forEach(c=>{ const opt=document.createElement('option'); opt.value=c; opt.textContent=c; qCurso.appendChild(opt); });
+
+askBtn.addEventListener('click', ()=> qDialog.showModal());
+qCancel.addEventListener('click', (e)=>{ e.preventDefault(); qDialog.close(); });
+
+qForm.addEventListener('submit', (e)=>{
+  e.preventDefault();
+  const fd = new FormData(qForm);
+  const entry = {
+    ts: new Date().toISOString(),
+    curso: fd.get('curso'),
+    nombre: (fd.get('nombre')||"").toString().trim(),
+    email: (fd.get('email')||"").toString().trim(),
+    pregunta: (fd.get('pregunta')||"").toString().trim()
+  };
+  if(!entry.curso || !entry.pregunta){ alert("Indica el curso y escribe tu pregunta."); return; }
+  saveQuestion(entry);
+
+  const subject = encodeURIComponent(`[Duda Matemáticas] ${entry.curso}`);
+  const body = encodeURIComponent(
+`Curso: ${entry.curso}
+Nombre: ${entry.nombre || "(no indicado)"
+}
+Email: ${entry.email || "(no indicado)"}
+
+Pregunta:
+${entry.pregunta}
+
+— Enviada desde la web de Matemáticas (Aristos)`
+  );
+  const emailDestino = EMAILS[entry.curso] || "dep.matematicas@colegioaristos.com";
+  window.location.href = `mailto:${emailDestino}?subject=${subject}&body=${body}`;
+  qDialog.close();
+});
+
+// LocalStorage helpers
+const LS_KEY = "matematicas_preguntas_aristos";
+function loadQuestions(){ try{ return JSON.parse(localStorage.getItem(LS_KEY) || "[]"); }catch(_){ return []; } }
+function saveQuestion(entry){ const list=loadQuestions(); list.push(entry); localStorage.setItem(LS_KEY, JSON.stringify(list)); }
+
+// Admin (?admin=1)
+const params = new URLSearchParams(location.search);
+if(params.get('admin')==='1'){ document.body.classList.add('admin-visible'); }
+if(params.get('admin')==='1'){
+  exportBtn.addEventListener('click', ()=>{
+    const rows = loadQuestions();
+    if(!rows.length){ alert("No hay preguntas guardadas en este navegador."); return; }
+    const header = ["timestamp","curso","nombre","email","pregunta"];
+    const csv = [header.join(",")].concat(
+      rows.map(r=>[r.ts, csvSafe(r.curso), csvSafe(r.nombre||""), csvSafe(r.email||""), csvSafe(r.pregunta||"")].join(","))
+    ).join("\n");
+    const blob = new Blob([csv], {type:"text/csv;charset=utf-8"});
+    const url = URL.createObjectURL(blob);
+    const a = Object.assign(document.createElement('a'), { href:url, download:"preguntas_matematicas_aristos.csv" });
+    document.body.appendChild(a); a.click(); URL.revokeObjectURL(url); a.remove();
+  });
+  clearBtn.addEventListener('click', ()=>{ if(confirm("Esto borrará las preguntas guardadas en este navegador. ¿Continuar?")){ localStorage.removeItem(LS_KEY); alert("Preguntas eliminadas."); } });
+}
+
+/* ===============================
+   Tema (🌓)
+=============================== */
+const themeToggle = document.getElementById('themeToggle');
+const THEME_KEY = "matematicas_theme_aristos";
+const savedTheme = localStorage.getItem(THEME_KEY);
+if(savedTheme){ document.documentElement.dataset.theme = savedTheme; applyTheme(); }
+themeToggle.addEventListener('click', ()=>{
+  const cur = document.documentElement.dataset.theme || "auto";
+  const next = cur==="light" ? "dark" : cur==="dark" ? "auto" : "light";
+  document.documentElement.dataset.theme = next;
+  localStorage.setItem(THEME_KEY, next);
+  applyTheme();
+});
+function applyTheme(){
+  const mode = document.documentElement.dataset.theme;
+  if(mode==="light"){ document.documentElement.style.colorScheme = "light"; }
+  else if(mode==="dark"){ document.documentElement.style.colorScheme = "dark"; }
+  else{ document.documentElement.style.removeProperty('color-scheme'); }
+}
+
+/* ===============================
+   Utils
+=============================== */
+function idFor(s){ return (s||"").toString().toLowerCase().replace(/[^a-z0-9]+/g,'_'); }
+function escapeId(s){ return s.replace(/[^a-z0-9]/gi,'_'); }
+function escapeHTML(s){ return (s||"").replace(/[&<>"']/g, m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m])); }
+function csvSafe(s){ s=(s||"").toString().replace(/"/g,'""'); return `"${s}"`; }
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
